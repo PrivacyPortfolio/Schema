@@ -1,0 +1,109 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:tns="urn:privacyportfolio:xsd:policy:1.4" xmlns:n1="https://www.privacyportfolio.com" xmlns:cp="urn:ietf:params:xml:ns:common-policy" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:ns1="http://schema.org/schemas" targetNamespace="https://www.privacyportfolio.com" elementFormDefault="qualified" attributeFormDefault="unqualified" xsi:schemaLocation="http://www.w3.org/2001/XMLSchema.xsd">
+	<!-- Use xsd:import to bring in an XSD from a different namespace. -->
+	<xs:import namespace="http://schema.org/schemas" schemaLocation="https://www.privacyportfolio.com/schemas https://www.privacyportfolio.com/schemas/schemaOrgCommon_v1.2.xsd"/>
+	<xs:import namespace="urn:ietf:params:xml:ns:common-policy" schemaLocation="https://www.privacyportfolio.com/schemas https://www.privacyportfolio.com/schemas/common-policy_v1.2.xsd"/>
+	<!-- definition of simple attributes -->
+	<xs:attribute name="id" type="xs:string"/>
+	<xs:attribute name="name" type="xs:string"/>
+	<xs:attribute name="key" type="xs:string"/>
+	<xs:attribute name="group" type="xs:string"/>
+	<xs:attribute name="standard" type="xs:string"/>
+	<!-- definition of simple elements -->
+	<xs:element name="type" type="xs:string" default="PrivacyPolicy"/>
+	<xs:element name="title" type="xs:string" default="Privacy Policy | PrivacyPortfolio"/>
+	<xs:element name="effectiveDate" type="xs:string"/>
+	<!-- definition of simpleType elements -->
+	<xs:element name="version">
+		<xs:simpleType>
+			<xs:restriction base="xs:string">
+				<xs:pattern value="[0-9].[0-9]"/>
+			</xs:restriction>
+		</xs:simpleType>
+	</xs:element>
+	<xs:element name="description">
+		<xs:simpleType>
+			<xs:restriction base="xs:string">
+				<xs:whiteSpace value="preserve"/>
+			</xs:restriction>
+		</xs:simpleType>
+	</xs:element>
+	<!-- definition of complexType elements -->
+	<xs:element name="claim">
+		<xs:complexType mixed="1">
+			<xs:attribute ref="n1:id"/>
+			<xs:attribute ref="n1:name"/>
+			<xs:attribute ref="n1:key"/>
+			<xs:attribute ref="n1:group"/>
+			<xs:attribute ref="n1:standard"/>
+		</xs:complexType>
+	</xs:element>
+	<xs:element name="statement">
+		<xs:complexType mixed="1">
+			<xs:attribute ref="n1:id"/>
+			<xs:attribute ref="n1:name"/>
+			<xs:attribute ref="n1:key"/>
+			<xs:attribute ref="n1:group"/>
+			<xs:attribute ref="n1:standard"/>
+		</xs:complexType>
+	</xs:element>
+	<xs:element name="definition">
+		<xs:complexType mixed="1">
+			<xs:attribute ref="n1:id"/>
+			<xs:attribute ref="n1:name"/>
+			<xs:attribute ref="n1:key"/>
+			<xs:attribute ref="n1:group"/>
+			<xs:attribute ref="n1:standard"/>
+		</xs:complexType>
+	</xs:element>
+	<xs:element name="role">
+		<xs:complexType>
+			<xs:sequence>
+				<xs:element name="value"/>
+				<xs:element name="context"/>
+			</xs:sequence>
+			<xs:attribute ref="n1:id" use="required"/>
+			<xs:attribute ref="n1:name"/>
+			<xs:attribute ref="n1:key"/>
+			<xs:attribute ref="n1:group"/>
+			<xs:attribute ref="n1:standard"/>
+		</xs:complexType>
+	</xs:element>
+	<xs:element name="publisher">
+		<xs:complexType>
+			<xs:sequence>
+				<xs:element name="Organization" type="ns1:OrganizationType"/>
+			</xs:sequence>
+		</xs:complexType>
+	</xs:element>
+	<xs:element name="ruleset">
+		<xs:complexType>
+			<xs:sequence>
+				<xs:element name="ruleset" type="cp:ruleType"/>
+			</xs:sequence>
+		</xs:complexType>
+	</xs:element>
+	<xs:element name="EnforcablePolicy">
+		<xs:annotation>
+			<xs:documentation xml:lang="en">
+        This type is the common base type for all query-able metadata elements in EnforcablePolicy.
+      </xs:documentation>
+		</xs:annotation>
+		<xs:complexType>
+			<xs:sequence>
+				<xs:element ref="n1:type" minOccurs="1" maxOccurs="1"/>
+				<xs:element ref="n1:version" minOccurs="1" maxOccurs="1"/>
+				<xs:element ref="n1:title" minOccurs="0" maxOccurs="1"/>
+				<xs:element ref="n1:effectiveDate" minOccurs="1" maxOccurs="1"/>
+				<xs:element ref="n1:description" minOccurs="1" maxOccurs="unbounded"/>
+				<xs:element ref="n1:publisher" minOccurs="1" maxOccurs="1"/>
+				<xs:element ref="n1:role" minOccurs="1" maxOccurs="unbounded"/>
+				<xs:element ref="n1:definition" minOccurs="0" maxOccurs="unbounded"/>
+				<xs:element ref="n1:statement" minOccurs="1" maxOccurs="unbounded"/>
+				<xs:element ref="n1:claim" minOccurs="1" maxOccurs="unbounded"/>
+				<xs:element ref="cp:ruleset"/>
+			</xs:sequence>
+			<xs:attribute name="owner" type="xs:string"/>
+		</xs:complexType>
+	</xs:element>
+</xs:schema>
